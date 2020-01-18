@@ -1,17 +1,14 @@
 from flask import Flask, request
-from flask_restful import Resource, Api, reqparse
 from .ocr import read_file
-import werkzeug
 
 app = Flask(__name__)
-api = Api(app)
-parser = reqparse.RequestParser()
-parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
 
-class ProcessFile(Resource):
-    def post(self):
-        data = parser.parse_args()
-        photo = data['file']
-        return photo
-
-api.add_resource(ProcessFile, '/')
+@app.route('/', methods=['POST'])
+def process_file():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return 'No file submitted'
+        file = request.files['file']
+        if file:
+            output = read_file(file)
+            return output
