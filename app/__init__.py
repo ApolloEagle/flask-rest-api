@@ -1,14 +1,13 @@
 from flask import Flask, request
 from .ocr import read_file
+import base64
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def process_file():
     if request.method == 'POST':
-        if 'file' not in request.files:
-            return 'No file submitted'
-        file = request.files['file']
+        file = request.json['base64Data']
         if file:
             output = read_file(file)
             return output
