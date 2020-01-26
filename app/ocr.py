@@ -1,8 +1,9 @@
 from PIL import Image
 import pytesseract
-import tesseract
 from io import BytesIO
 import base64
+
+pytesseract.pytesseract.tesseract_cmd = r'/app/.apt/usr/bin/tesseract'
 
 
 def read_file(file):
