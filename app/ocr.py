@@ -7,5 +7,7 @@ pytesseract.pytesseract.tesseract_cmd = r'/app/.apt/usr/bin/tesseract'
 
 
 def read_file(file):
-    output = pytesseract.image_to_string(Image.open(BytesIO(base64.b64decode(file))))
+    file = Image.open(BytesIO(base64.b64decode(file)))
+    updatefile = file.convert('1')
+    output = pytesseract.image_to_string(updatefile)
     return output
