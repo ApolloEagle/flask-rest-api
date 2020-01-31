@@ -1,1 +1,1 @@
-web: gunicorn helloworld:app
+web: gunicorn helloworld:app --timeout 30
